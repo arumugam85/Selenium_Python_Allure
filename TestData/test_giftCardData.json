@@ -1,0 +1,13 @@
+{
+
+	"cardInfo":{
+		"cardType":"Physical",
+		"initValue":"25.0000 USD",
+		"recipName":"Arunv",
+		"recipEmail":"arunv@gmail.com",
+		"senderName":"David",
+		"senderEmail":"davidm@gmail.com",
+		"message":"Happy Birthday"
+	}	
+	
+}

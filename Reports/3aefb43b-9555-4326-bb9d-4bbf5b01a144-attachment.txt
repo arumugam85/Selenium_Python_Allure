@@ -1,0 +1,11 @@
+[32mINFO    [0m WDM:logger.py:12 
+
+[32mINFO    [0m WDM:logger.py:12 ====== WebDriver manager ======
+[32mINFO    [0m WDM:logger.py:12 Current google-chrome version is 95.0.4638
+[32mINFO    [0m WDM:logger.py:12 Get LATEST driver version for 95.0.4638
+[32mINFO    [0m WDM:logger.py:12 Driver [C:\Users\Arumugam\.wdm\drivers\chromedriver\win32\95.0.4638.54\chromedriver.exe] found in cache
+[32mINFO    [0m root:test_addDiscount.py:54 ***********Test_003_Add_New_Discount details*************
+[32mINFO    [0m root:test_addDiscount.py:63 ***********Login Successful*************
+[32mINFO    [0m root:test_addDiscount.py:77 Discount details entered successfully
+[32mINFO    [0m root:test_addDiscount.py:78 Search Discount details and edit information
+[32mINFO    [0m root:test_addDiscount.py:83 ******driver closed***********

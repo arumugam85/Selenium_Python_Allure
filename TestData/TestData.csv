@@ -1,0 +1,5 @@
+discount_name,discount_type,discount_amt,start_date,end_date,discount_limit,search_discount_type,search_discount_name
+Daniel Miller,Assigned to shipping,14.0000 USD,10/23/2021,10/28/2021,N times only,Assigned to shipping,10
+Mike John,Assigned to products,15.0000 USD,10/23/2021,10/28/2021,N times per customer,Assigned to products,20
+Roger Williams,Assigned to order total,20.0000 USD,10/23/2021,10/28/2021,N times only,Assigned to order total,30
+Stuart Law,Assigned to categories,10.0000 USD,10/23/2021,10/28/2021,N times per customer,Assigned to categories,40
