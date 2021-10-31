@@ -1,7 +1,5 @@
-import allure
 import self
 import xlrd
-from allure_commons.types import AttachmentType
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 

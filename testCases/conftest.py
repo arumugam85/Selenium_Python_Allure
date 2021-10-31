@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 @pytest.fixture()
 def setup(browser):
     if browser == 'chrome':
-        # driver = webdriver.Chrome()
+        #driver = webdriver.Chrome()
         driver = webdriver.Chrome(ChromeDriverManager().install())
         driver.maximize_window()
 
@@ -24,7 +24,7 @@ def teardown(self):
     if driver is None:
         self.logger.info("***********Test is Destroyed*************")
         self.logger.info("Test destroyed at "+str(datetime.datetime.now()))
-        driver.close()
+        #driver.close()
         driver.quit()
 
 
