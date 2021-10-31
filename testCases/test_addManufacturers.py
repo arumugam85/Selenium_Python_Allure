@@ -41,9 +41,6 @@ for r in range(1, rowsCount):
     map_discount_name = sheet.cell_value(r, 2)
     limit_cust_role = sheet.cell_value(r, 3)
     limit_store_name = sheet.cell_value(r, 4)
-    # discount_limit = sheet.cell_value(r, 5)
-    # search_discount_type = sheet.cell_value(r, 6)
-    # search_discount_name = sheet.cell_value(r, 7)
 
     print('Enter user details')
     self.lp = LoginPage(self.driver)

@@ -101,7 +101,7 @@ class Test_002_AddCustomer:
 
             allure.attach(self.driver_get_screenshot_as_png(), name="addcustomerscreen", attachment_type=AttachmentType.PNG)
 
-        self.driver.close()
+        self.driver.quit()
         self.logger.info("******driver closed***********")
 
 
