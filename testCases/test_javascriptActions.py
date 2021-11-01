@@ -1,7 +1,10 @@
 import time
 import traceback
 
+import pytest
+from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
 
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
@@ -14,10 +17,19 @@ class Test_001_Login:
 
     logger = LogGen.loggen()
 
-    def test_userRegister(self, setup):
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
+    def test_userRegister(self, test_setup):
         self.logger.info("*************** Test_001_Login *****************")
         self.logger.info("****Started Home page title test ****")
-        self.driver = setup
+        #self.driver = setup
         self.logger.info("****Opening URL****")
         self.driver.get("http://tutorialsninja.com/demo/")
         # time.sleep(15)

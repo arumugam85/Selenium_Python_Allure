@@ -60,7 +60,7 @@ for r in range(1, rowsCount):
     print('click toggle btn')
     # self.manufacture.clickToggleBtn()
     self.manufacture.enterMfgDiscountName(mfg_name)
-    self.manufacture.enterDiscountDesc(mfg_desc)
+    #self.manufacture.enterDiscountDesc(mfg_desc)
     self.manufacture.clickUploadBtn()
     self.manufacture.clickMappingsBtn()
     self.manufacture.selectLimitStoreType(limit_store_name)

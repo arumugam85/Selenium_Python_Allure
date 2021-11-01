@@ -3,7 +3,9 @@ from datetime import time
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from selenium import webdriver
 from selenium.webdriver import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddProducts import AddProducts
 from pageObjects.LoginPage import LoginPage
@@ -19,11 +21,19 @@ class Test_008_MouseActions:
 
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
     @allure.description("**********Validate NOP commerce application with login credentials**********")
     @allure.severity(severity_level="CRITICAL")
-    def test_login(self, setup):
+    def test_login(self, test_setup):
         self.logger.info("****Started Login Test****")
-        self.driver = setup
+        #self.driver = setup
         self.driver.get("https://jqueryui.com/resources/demos/droppable/default.html")
 
         source = self.driver.find_element_by_id("draggable")

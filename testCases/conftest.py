@@ -2,26 +2,33 @@ import datetime
 
 import pytest
 from selenium import webdriver
-from webdriver_manager import driver
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
+
+class BaseClass:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
 
 
-@pytest.fixture()
-def setup(browser):
-    global driver
-
-    if browser == 'chrome':
-        # driver = webdriver.Chrome()
-        driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.maximize_window()
-
-    elif browser == 'firefox':
-        driver = webdriver.Firefox()
-        driver.maximize_window()
-
-    return driver
+# if browser == 'chrome':
+#     # driver = webdriver.Chrome()
+#     driver = webdriver.Chrome(ChromeDriverManager().install())
+#     driver.maximize_window()
+#
+# elif browser == 'firefox':
+#     driver = webdriver.Firefox()
+#     driver.maximize_window()
+#
+# return driver
 
 
 def teardown(self):

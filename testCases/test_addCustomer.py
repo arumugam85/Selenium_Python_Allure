@@ -16,6 +16,15 @@ class Test_002_AddCustomer:
     password = ReadConfig.getPassword()
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     def readData():
         list = []
         # path = "C:\\Users\\Arumugam\\PycharmProjects\\ECommerce_Demo\\InputData.xlsx"
@@ -46,7 +55,7 @@ class Test_002_AddCustomer:
     @allure.description("**********Add customer details information**************")
     @allure.severity(severity_level="NORMAL")
     @pytest.mark.parametrize("email,custpassword,firstname,lastname,gender,dob,company,newsletter,role,vendor,comment",readData())
-    def test_addCustomer(self, setup,email,custpassword,firstname,lastname,gender,dob,company,newsletter,role,vendor,comment):
+    def test_addCustomer(self, test_setup,email,custpassword,firstname,lastname,gender,dob,company,newsletter,role,vendor,comment):
         self.logger.info("***********Test_002_Add_New_Customer*************")
         # ss = ScreenShots(driver)
         # ss_path = "/test_addcustomer/"

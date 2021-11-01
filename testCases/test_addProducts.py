@@ -2,6 +2,8 @@ import time
 import allure
 import openpyxl
 import pytest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddProducts import AddProducts
 from pageObjects.LoginPage import LoginPage
@@ -46,16 +48,25 @@ class Test_003_AddProducts:
     password = ReadConfig.getPassword()
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     @allure.description("**********Add customer details information**************")
     @allure.severity(severity_level="NORMAL")
     @pytest.mark.parametrize(
         "prod_name,prod_desc,sku_name,category_name,mfg_name,prod_tagname,gtin_number,mfg_number,prod_type,prod_template,cust_role,start_date,end_date",
         readData())
-    def test_addProducts(self, setup, prod_name, prod_desc, sku_name, category_name, mfg_name, prod_tagname,
+    def test_addProducts(self, test_setup, prod_name, prod_desc, sku_name, category_name, mfg_name, prod_tagname,
                          gtin_number, mfg_number, prod_type, prod_template, cust_role, start_date, end_date):
         self.logger.info("***********Test_003_Add_New_Product details*************")
 
-        self.driver = setup
+       # self.driver = setup
         self.driver.get(self.baseURL)
         self.driver.maximize_window()
         self.lp = LoginPage(self.driver)

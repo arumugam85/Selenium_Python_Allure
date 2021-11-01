@@ -1,4 +1,6 @@
 import time
+
+import pytest
 import self
 import xlrd
 from selenium import webdriver
@@ -14,6 +16,16 @@ self.baseURL = ReadConfig.getApplicationURL()
 self.username = ReadConfig.getUsername()
 self.password = ReadConfig.getPassword()
 self.logger = LogGen.loggen()
+
+
+@pytest.fixture()
+def test_setup(self):
+    global driver
+    self.driver = webdriver.Chrome(ChromeDriverManager().install())
+    self.driver.implicitly_wait(10)
+    self.driver.maximize_window()
+    yield
+    self.driver.quit()
 
 self.driver = webdriver.Chrome(ChromeDriverManager().install())
 self.driver.implicitly_wait(10)

@@ -1,7 +1,10 @@
 import time
 
 import allure
+import pytest
 from allure_commons.types import AttachmentType
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.LoginPage import LoginPage
 from utilities import XLUtils
@@ -14,12 +17,21 @@ class Test_002_DDT_Login:
     path = ".//TestData/InputData.xlsx"
     logger = LogGen.loggen()  # Logger
 
-    def test_login_ddt(self, setup):
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
+    def test_login_ddt(self, test_setup):
         self.logger.info("******* Starting Test_002_DDT_Login Test **********")
         self.logger.info("******* Starting Login DDT Test **********")
         ss_path = "/test_login/"
         # ss = ScreenShots(self.driver)
-        self.driver = setup
+        #self.driver = setup
         self.driver.get(self.baseURL)
         self.driver.maximize_window()
         self.lp = LoginPage(self.driver)

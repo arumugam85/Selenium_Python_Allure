@@ -3,6 +3,8 @@ import time
 import allure
 import openpyxl
 import pytest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddDiscount import AddDiscount
 from pageObjects.LoginPage import LoginPage
@@ -44,16 +46,25 @@ class Test_003_AddDiscount:
     password = ReadConfig.getPassword()
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     @allure.description("**********Add customer details information**************")
     @allure.severity(severity_level="NORMAL")
     @pytest.mark.parametrize(
         "discount_name,discount_type,discount_amt,start_date,end_date,discount_limit,search_discount_type,search_discount_name",
         readData())
-    def test_addDiscount(self, setup, discount_name, discount_type, discount_amt, start_date, end_date, discount_limit,
+    def test_addDiscount(self, test_setup, discount_name, discount_type, discount_amt, start_date, end_date, discount_limit,
                          search_discount_type, search_discount_name):
         self.logger.info("***********Test_003_Add_New_Discount details*************")
 
-        self.driver = setup
+        #self.driver = setup
         self.driver.get(self.baseURL)
         self.driver.maximize_window()
         self.lp = LoginPage(self.driver)

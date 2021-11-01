@@ -1,11 +1,15 @@
 import allure
 import pytest
 import openpyxl
+import self
 from allure_commons.types import AttachmentType
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddCustomerPage import AddCustomer
 from pageObjects.AddCustomerRole import AddCustomerRole
 from pageObjects.LoginPage import LoginPage
+from testCases.conftest import BaseClass
 from utilities.XLUtils import readData
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
@@ -22,7 +26,7 @@ def readData():
     cols = sheet.max_column
 
     for r in range(2, rows + 1):
-        custname = sheet.cell(r, 1).value
+        # custname = sheet.cell(r, 1).value
         # showcount = sheet.cell(r, 2).value
         # firstname = sheet.cell(r, 3).value
         # lastname = sheet.cell(r, 4).value
@@ -34,28 +38,37 @@ def readData():
         # vendor = sheet.cell(r, 10).value
         # comment = sheet.cell(r, 11).value
 
-        tuple = (custname)
+        # tuple = (custname)
         # tuple = (custname, custpassword, firstname, lastname, gender, dob, company, newsletter, role, vendor, comment)
         list.append(tuple)
         return list
 
 
-@pytest.mark.usefixtures('setup')
+@pytest.mark.usefixtures('test_setup')
 class Test_006_AddCustomerRole:
     baseURL = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     @allure.description("**********Add customer Role details information**************")
     @allure.severity(severity_level="NORMAL")
-    @pytest.mark.parametrize("custname", readData())
-    def test_addCustomerRoles(self, setup, custname):
+    # @pytest.mark.parametrize(readData())
+    def test_addCustomerRoles(self, test_setup):
         self.logger.info("***********Test_002_Add_New_Customer*************")
-        # ss = ScreenShots(driver)
-        # ss_path = "/test_addcustomer/"
-        self.driver = setup
-        self.driver.get("https://admin-demo.nopcommerce.com/")
+        #self.driver = test_setup
+        # self.base = BaseClass(self.driver)
+        # self.base.test_setup()
+        self.driver.get(self.baseURL)
         self.driver.maximize_window()
         self.lp = LoginPage(self.driver)
         self.lp.setUserName(self.username)

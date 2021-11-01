@@ -3,6 +3,8 @@ from datetime import time
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddProducts import AddProducts
 from pageObjects.LoginPage import LoginPage
@@ -14,14 +16,22 @@ class Test_001_Login:
     baseURL = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
     password = ReadConfig.getPassword()
-
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     # @pytest.mark.regression
-    def test_homePageTitle(self, setup):
+    def test_homePageTitle(self, test_setup):
         self.logger.info("*************** Test_001_Login *****************")
         self.logger.info("****Started Home page title test ****")
-        self.driver = setup
+        #self.driver = setup
         self.logger.info("****Opening URL****")
         self.driver.get(self.baseURL)
         self.logger.info("***********Test is Destroyed*************")

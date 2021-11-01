@@ -1,7 +1,10 @@
 import time
 
 import allure
+import pytest
+from selenium import webdriver
 from selenium.webdriver import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
@@ -14,11 +17,20 @@ class Test_008_MouseActions:
 
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     @allure.description("**********Validate Alert pop up window**********")
     @allure.severity(severity_level="CRITICAL")
-    def test_alertWindow(self, setup):
+    def test_alertWindow(self, test_setup):
         self.logger.info("****Started Login Test****")
-        self.driver = setup
+        #self.driver = setup
         self.driver.get("https://mail.rediff.com/cgi-bin/login.cgi")
         self.driver.find_element_by_xpath("//input[@name='proceed']").click()
         time.sleep(3)

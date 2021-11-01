@@ -3,6 +3,8 @@ import allure
 import openpyxl
 import pytest
 from allure_commons.types import AttachmentType
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pageObjects.AddAffliate import AddAffliate
 from pageObjects.AddDiscount import AddDiscount
@@ -50,16 +52,25 @@ class Test_003_CRUDAffliate:
     password = ReadConfig.getPassword()
     logger = LogGen.loggen()
 
+    @pytest.fixture()
+    def test_setup(self):
+        global driver
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver.implicitly_wait(10)
+        self.driver.maximize_window()
+        yield
+        self.driver.quit()
+
     @allure.description("**********Add Affliation details information**************")
     @allure.severity(severity_level="NORMAL")
     @pytest.mark.parametrize(
         "first_name, last_name, email, company_name, country_name, state_name, region_name, city_name, address, zip_code,phone_number, fax_number,comp_name",
         readData())
-    def test_addAffliate(self, setup, first_name, last_name, email, company_name, country_name, state_name, region_name,
+    def test_addAffliate(self, test_setup, first_name, last_name, email, company_name, country_name, state_name, region_name,
                          city_name, address, zip_code, phone_number, fax_number, comp_name):
         self.logger.info("***********Test_003_Add_New_Affliation details*************")
 
-        self.driver = setup
+        #self.driver = setup
         self.driver.get(self.baseURL)
         self.driver.maximize_window()
         self.logger.info("***********Enter Login Information*************")
