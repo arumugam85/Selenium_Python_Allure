@@ -1,4 +1,9 @@
 import time
+from telnetlib import EC
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class LoginPage:
@@ -32,20 +37,20 @@ class LoginPage:
             print('link names->', items.text)
             print('Verify Text matches or not')
             time.sleep(5)
-            if (items.text == 'Product reviews'):
-            # time.sleep(3)
+            if items.text == 'Product reviews':
+                # time.sleep(3)
                 print('Text matches')
                 items.click()
-                time.sleep(3)
-            # self.driver.implicityly_wait(5)
-                print('Current page Title is >', self.driver.title)
-                #break
-                print('Link clicked ')
-                self.driver.back()
-                time.sleep(3)
-                print('New page Title is >', self.driver.title)
-                #break
+                break
 
     def clickLogout(self):
-        print('Logout btn clicked ')
+        print('Click Logout btn')
+        wait = WebDriverWait(self.driver, 10)
+        self.driver.implicityly_wait(5)
+        wait.until(expected_conditions.presence_of_element_located(By.XPATH, '(//a[@class="nav-link"])[2]'))
         self.driver.find_element_by_xpath(self.button_logout_btn).click()
+
+    def clickBackBtn(self):
+        self.driver.back()
+        self.driver.implicitly_wait(5)
+        print('New page Title is >', self.driver.title)

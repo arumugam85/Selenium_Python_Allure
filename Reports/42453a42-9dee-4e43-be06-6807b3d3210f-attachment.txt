@@ -1,4 +1,0 @@
-[32mINFO    [0m root:test_salesOrder.py:31 This is an info message
-[33mWARNING [0m root:test_salesOrder.py:32 This is a warning message
-[1m[31mERROR   [0m root:test_salesOrder.py:33 This is an error message
-[31mCRITICAL[0m root:test_salesOrder.py:34 This is a critical message

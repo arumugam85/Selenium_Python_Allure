@@ -17,7 +17,7 @@ class Test_001_Login:
 
     logger = LogGen.loggen()
 
-    @pytest.mark.regression
+    # @pytest.mark.regression
     def test_homePageTitle(self, setup):
         self.logger.info("*************** Test_001_Login *****************")
         self.logger.info("****Started Home page title test ****")
@@ -53,9 +53,11 @@ class Test_001_Login:
         self.products = AddProducts(self.driver)
         self.products.clickCategoryLink()
         self.lp.verifyAllMenuLinks()
+        self.lp.clickBackBtn()
         act_title = self.driver.title
+        print('verify page title', act_title)
 
-        if act_title == "Dashboard / nopCommerce administration":
+        if act_title == 'Dashboard / nopCommerce administration':
             self.logger.info("****Login test passed ****")
             allure.attach(self.driver.get_screenshot_as_png(), name="testloginscreen",
                           attachment_type=AttachmentType.PNG)

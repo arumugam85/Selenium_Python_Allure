@@ -52,7 +52,6 @@ class ShoppingCartDemo:
                 print('element clicked')
                 break
 
-
     def verifyAllMenuLinks(self):
         print('Fetch all links')
         all_links = self.driver.find_elements_by_xpath("//a[@class='nav-link']/p")
@@ -62,18 +61,19 @@ class ShoppingCartDemo:
             print('link names->', items.text)
             print('Verify Text matches or not')
             time.sleep(5)
-            if (items.text == 'Product reviews'):
+            if items.text == 'Product reviews':
                 # time.sleep(3)
                 print('Text matches')
                 items.click()
-                time.sleep(3)
-                # self.driver.implicityly_wait(5)
-                print('Current page Title is >', self.driver.title)
-                # break
-                print('Link clicked ')
-                self.driver.back()
-                time.sleep(3)
-                print('New page Title is >', self.driver.title)
+                break
+            time.sleep(3)
+            # self.driver.implicityly_wait(5)
+            print('Current page Title is >', self.driver.title)
+            # break
+            print('Link clicked ')
+            self.driver.back()
+            time.sleep(3)
+            print('New page Title is >', self.driver.title)
                 # break
 
     def clickLogout(self):

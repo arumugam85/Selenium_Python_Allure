@@ -1,7 +1,10 @@
 import time
 
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class AddCustomerRole:
@@ -45,9 +48,13 @@ class AddCustomerRole:
             self.driver.find_element_by_xpath(self.chkBox_cust_active_chk_box).click()
 
     def clickCustomerFreeShipChkBox(self):
+        time.sleep(3)
+        print('Click free shipping check box')
         try:
+            wait = WebDriverWait(self.driver, 10)
+            wait.until(expected_conditions.presence_of_element_located(By.CSS_SELECTOR, '#FreeShipping'))
             self.driver.find_element_by_css_selector(self.chkBox_cust_freeship_css).click()
-            print('freeship chk box clicked')
+            print('free ship chk box clicked')
         except StaleElementReferenceException:
             self.driver.find_element_by_css_selector(self.chkBox_cust_freeship_css).click()
 
@@ -147,7 +154,6 @@ class AddCustomerRole:
         self.driver.find_element_by_xpath(self.btn_edit_xpath).click()
         print("edit btn clicked successfully")
 
-
     def clickDeleteButton(self):
         time.sleep(2)
         self.driver.find_element_by_xpath(self.btn_delete_xpath).click()
@@ -170,10 +176,8 @@ class AddCustomerRole:
         for i in range(len(rows)):
             columns = rows[i].find_elements_by_tag_name("td")
             for j in range(len(columns)):
-                if columns[j].text == "Administrators":
+                if columns[j].text == 'Administrators':
                     print('Verify the role name and click edit')
                     columns[5].click()
                     print('Admin role clicked')
-        time.sleep(3)
-        print('Click freeshiping check box')
-
+                    break

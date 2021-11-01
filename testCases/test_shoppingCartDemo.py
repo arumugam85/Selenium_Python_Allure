@@ -21,7 +21,6 @@ class Test_007_ShoppingCart:
     @allure.description("**********Validate NOP commerce application with login credentials**********")
     @allure.severity(severity_level="CRITICAL")
     def test_login(self, setup):
-
         self.logger.info("****Started Login Test****")
         self.driver = setup
         self.driver.get("http://tutorialsninja.com/demo")
