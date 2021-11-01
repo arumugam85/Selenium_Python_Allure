@@ -40,6 +40,7 @@ def readData():
         return list
 
 
+@pytest.mark.usefixtures('setup')
 class Test_006_AddCustomerRole:
     baseURL = ReadConfig.getApplicationURL()
     username = ReadConfig.getUsername()
@@ -54,7 +55,7 @@ class Test_006_AddCustomerRole:
         # ss = ScreenShots(driver)
         # ss_path = "/test_addcustomer/"
         self.driver = setup
-        self.driver.get(self.baseURL)
+        self.driver.get("https://admin-demo.nopcommerce.com/")
         self.driver.maximize_window()
         self.lp = LoginPage(self.driver)
         self.lp.setUserName(self.username)

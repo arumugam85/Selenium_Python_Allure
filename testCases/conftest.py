@@ -5,9 +5,13 @@ from selenium import webdriver
 from webdriver_manager import driver
 from webdriver_manager.chrome import ChromeDriverManager
 
-global driver
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+
 @pytest.fixture()
 def setup(browser):
+    global driver
+
     if browser == 'chrome':
         # driver = webdriver.Chrome()
         driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -25,7 +29,8 @@ def teardown(self):
         self.logger.info("***********Test is Destroyed*************")
         self.logger.info("Test destroyed at " + str(datetime.datetime.now()))
         # driver.close()
-        driver.quit()
+        yield
+        self.driver.quit()
 
 
 def pytest_addoption(parser):

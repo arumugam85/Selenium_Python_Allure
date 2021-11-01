@@ -1,0 +1,1 @@
+[32mINFO    [0m root:test_addCustomerRoles.py:54 ***********Test_002_Add_New_Customer*************
